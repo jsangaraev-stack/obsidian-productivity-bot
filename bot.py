@@ -317,6 +317,7 @@ def load_reminders(path: Path) -> dict:
 def initial_state() -> dict:
     return {
         "offset": None,
+        "processed_updates": [],
         "sessions": {},
         "entries": {},
         "last_sent": {},
@@ -326,6 +327,7 @@ def initial_state() -> dict:
 
 def normalize_state(state: dict) -> dict:
     state.setdefault("offset", None)
+    state.setdefault("processed_updates", [])
     state.setdefault("sessions", {})
     state.setdefault("entries", {})
     state.setdefault("last_sent", {})
@@ -334,6 +336,8 @@ def normalize_state(state: dict) -> dict:
         state["last_sent"] = {}
     if not isinstance(state["random_reminders"], dict):
         state["random_reminders"] = {}
+    if not isinstance(state["processed_updates"], list):
+        state["processed_updates"] = []
     for entry in state["entries"].values():
         morning = entry.get("morning", {})
         old_sleep = morning.pop("wake_sleep_time", "")
@@ -341,6 +345,32 @@ def normalize_state(state: dict) -> dict:
             sleep_time, wake_time = split_sleep_answer(old_sleep)
             morning["sleep_time"] = sleep_time
             morning["wake_time"] = wake_time
+    return state
+
+
+def mark_update_processed(state: dict, update_id: int) -> None:
+    processed = state.setdefault("processed_updates", [])
+    processed.append(update_id)
+    state["processed_updates"] = processed[-200:]
+
+
+def update_already_processed(state: dict, update_id: int) -> bool:
+    return update_id in set(state.get("processed_updates", []))
+
+
+def refresh_state_from_github(config: Config, state: dict) -> dict:
+    if not github_enabled(config):
+        return state
+    try:
+        remote_state = normalize_state(load_state(config))
+    except Exception as error:
+        print(f"Не удалось подтянуть state из GitHub: {error}", file=sys.stderr)
+        return state
+    if int(remote_state.get("offset") or 0) > int(state.get("offset") or 0):
+        return remote_state
+    remote_processed = set(remote_state.get("processed_updates", []))
+    local_processed = set(state.get("processed_updates", []))
+    state["processed_updates"] = list((remote_processed | local_processed))[-200:]
     return state
 
 
@@ -527,8 +557,7 @@ def save_session_to_state(state: dict, session: dict) -> None:
         answers = session.get("answers", {})
         state["entries"][date].setdefault("morning", {})
         state["entries"][date]["morning"]["main_strike"] = answers.get("quick_main_strike", "")
-        state["entries"][date]["morning"]["plan"] = "быстрый режим"
-        state["entries"][date]["morning"]["specific_tasks"] = answers.get("quick_tasks", "")
+        state["entries"][date]["morning"]["plan"] = answers.get("quick_tasks", "")
         return
 
     state["entries"][date].setdefault(block, {})
@@ -557,7 +586,7 @@ def streak_days(state: dict, timezone: str) -> int:
 
 def minimum_answer(question: dict) -> str:
     question_id = question.get("id")
-    if question_id in {"main_strike", "plan", "specific_tasks", "fact", "tomorrow_first_step"}:
+    if question_id in {"main_strike", "plan", "fact", "tomorrow_first_step"}:
         return MINIMUM_TEXT
     if question_id == "planned_work_hours":
         return "1-2"
@@ -683,7 +712,6 @@ def build_report(config: Config, state: dict) -> str:
         plan = answer(entry, "morning", "plan")
         main_strike = answer(entry, "morning", "main_strike")
         planned_hours = answer(entry, "morning", "planned_work_hours")
-        specific_tasks = answer(entry, "morning", "specific_tasks")
         fact = answer(entry, "evening", "fact")
         strike_done = answer(entry, "evening", "main_strike_done")
         goal_step = answer(entry, "evening", "goal_step")
@@ -706,7 +734,6 @@ def build_report(config: Config, state: dict) -> str:
                 f"- План: {plan or 'не заполнено'}",
                 f"- Главный удар: {main_strike or 'не заполнено'}",
                 f"- План рабочих часов: {planned_hours or 'не заполнено'}",
-                f"- Конкретные задачи: {specific_tasks or 'не заполнено'}",
                 f"- Факт: {fact or 'не заполнено'}",
                 f"- Главный удар выполнен: {strike_done or 'не заполнено'}",
                 f"- Шаг к Цели: {goal_step or 'не заполнено'}",
@@ -1044,12 +1071,18 @@ def main() -> None:
 
     while True:
         try:
+            state = refresh_state_from_github(config, state)
             before_state = json.dumps(state, ensure_ascii=False, sort_keys=True)
             maybe_send_scheduled(bot, config, state, habits, reminders)
             updates = bot.get_updates(state.get("offset"))
             for update in updates:
-                state["offset"] = update["update_id"] + 1
+                update_id = update["update_id"]
+                if update_already_processed(state, update_id):
+                    state["offset"] = max(int(state.get("offset") or 0), update_id + 1)
+                    continue
+                state["offset"] = update_id + 1
                 handle_update(bot, config, state, habits, update)
+                mark_update_processed(state, update_id)
             after_state = json.dumps(state, ensure_ascii=False, sort_keys=True)
             persist_state(config, state, remote=after_state != before_state)
             time.sleep(1)
