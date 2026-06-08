@@ -1,11 +1,13 @@
 {
-  "offset": 911298881,
+  "offset": 911298882,
   "sessions": {
     "1332402646": {
       "date": "2026-06-08",
       "block": "morning",
-      "index": 0,
-      "answers": {}
+      "index": 1,
+      "answers": {
+        "main_strike": "начать снимать рилсы"
+      }
     }
   },
   "entries": {
@@ -49,8 +51,9 @@
     ]
   },
   "processed_updates": [
+    911298880,
     911298878,
     911298879,
-    911298880
+    911298881
   ]
 }
