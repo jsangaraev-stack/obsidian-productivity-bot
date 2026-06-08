@@ -1,11 +1,9 @@
 {
-  "offset": 911298877,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-08",
-      "block": "morning",
-      "index": 9,
-      "answers": {
+  "offset": 911298878,
+  "sessions": {},
+  "entries": {
+    "2026-06-08": {
+      "morning": {
         "main_strike": "начать снимать рилсы",
         "sleep_time": "23:00",
         "wake_time": "08:30",
@@ -14,11 +12,12 @@
         "exercise": "нет",
         "quran_wird": "нет",
         "plan": "муфтият, начать рилсы",
-        "planned_work_hours": "5-6"
-      }
+        "planned_work_hours": "5-6",
+        "specific_tasks": "-"
+      },
+      "evening": {}
     }
   },
-  "entries": {},
   "last_sent": {},
   "random_reminders": {
     "2026-06-08": [
