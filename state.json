@@ -1,5 +1,5 @@
 {
-  "offset": 911298878,
+  "offset": 911298879,
   "sessions": {},
   "entries": {
     "2026-06-08": {
@@ -40,5 +40,8 @@
         "sent": false
       }
     ]
-  }
+  },
+  "processed_updates": [
+    911298878
+  ]
 }
