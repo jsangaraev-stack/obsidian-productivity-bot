@@ -1,22 +1,6 @@
 {
-  "offset": 911298889,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-08",
-      "block": "morning",
-      "index": 8,
-      "answers": {
-        "main_strike": "начать снимать рилсы",
-        "sleep_time": "23:00",
-        "wake_time": "08:30",
-        "cold_shower": "нет",
-        "breathing": "нет",
-        "exercise": "нет",
-        "quran_wird": "нет",
-        "plan": "тащить"
-      }
-    }
-  },
+  "offset": 911298890,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -27,7 +11,7 @@
         "breathing": "нет",
         "exercise": "нет",
         "quran_wird": "нет",
-        "plan": "муфтият, начать рилсы",
+        "plan": "тащить",
         "planned_work_hours": "5-6",
         "specific_tasks": "-"
       },
@@ -66,8 +50,9 @@
     911298885,
     911298886,
     911298887,
+    911298888,
     911298878,
     911298879,
-    911298888
+    911298889
   ]
 }
