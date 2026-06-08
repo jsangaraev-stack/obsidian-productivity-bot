@@ -1,0 +1,89 @@
+{
+  "morning": {
+    "intro": "Утренний план. Фиксируем базу дня и конкретные задачи.",
+    "questions": [
+      {
+        "id": "main_strike",
+        "text": "Какой один главный удар дня?",
+        "type": "text"
+      },
+      {
+        "id": "sleep_time",
+        "text": "Во сколько я лег?",
+        "type": "text"
+      },
+      {
+        "id": "wake_time",
+        "text": "Во сколько я встал?",
+        "type": "text"
+      },
+      {
+        "id": "cold_shower",
+        "text": "Сделал ли я холодный душ?",
+        "type": "choice",
+        "options": ["да", "нет"]
+      },
+      {
+        "id": "breathing",
+        "text": "Сделал ли я дыхательную практику?",
+        "type": "choice",
+        "options": ["да", "нет"]
+      },
+      {
+        "id": "exercise",
+        "text": "Сделал ли я зарядку?",
+        "type": "choice",
+        "options": ["да", "нет"]
+      },
+      {
+        "id": "quran_wird",
+        "text": "Прочитал ли я вирд Корана?",
+        "type": "choice",
+        "options": ["да", "нет"]
+      },
+      {
+        "id": "plan",
+        "text": "Каков мой план на день?",
+        "type": "text"
+      },
+      {
+        "id": "planned_work_hours",
+        "text": "Сколько часов я планирую работать?",
+        "type": "choice",
+        "options": ["1-2", "3-4", "5-6", "7+"]
+      },
+      {
+        "id": "specific_tasks",
+        "text": "Какие задачи я должен выполнить конкретно?",
+        "type": "text"
+      }
+    ]
+  },
+  "evening": {
+    "intro": "Вечерний факт. Сверяем план с реальностью.",
+    "questions": [
+      {
+        "id": "fact",
+        "text": "Что я сделал?",
+        "type": "text"
+      },
+      {
+        "id": "main_strike_done",
+        "text": "Главный удар выполнен?",
+        "type": "choice",
+        "options": ["да", "частично", "нет"]
+      },
+      {
+        "id": "goal_step",
+        "text": "Сделал ли я шаг к Цели?",
+        "type": "choice",
+        "options": ["да", "частично", "нет"]
+      },
+      {
+        "id": "tomorrow_first_step",
+        "text": "Какой первый шаг завтра утром?",
+        "type": "text"
+      }
+    ]
+  }
+}
