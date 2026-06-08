@@ -1,10 +1,10 @@
 {
-  "offset": 911298876,
+  "offset": 911298877,
   "sessions": {
     "1332402646": {
       "date": "2026-06-08",
       "block": "morning",
-      "index": 8,
+      "index": 9,
       "answers": {
         "main_strike": "начать снимать рилсы",
         "sleep_time": "23:00",
@@ -13,7 +13,8 @@
         "breathing": "нет",
         "exercise": "нет",
         "quran_wird": "нет",
-        "plan": "муфтият, начать рилсы"
+        "plan": "муфтият, начать рилсы",
+        "planned_work_hours": "5-6"
       }
     }
   },
