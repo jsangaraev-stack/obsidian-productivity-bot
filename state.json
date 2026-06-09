@@ -1,17 +1,18 @@
 {
-  "offset": 911298901,
+  "offset": 911298902,
   "sessions": {
     "1332402646": {
       "date": "2026-06-09",
       "block": "morning",
-      "index": 6,
+      "index": 7,
       "answers": {
         "main_strike": "подагватить в нурлате",
         "sleep_time": "01:00",
         "wake_time": "04:10",
         "cold_shower": "нет",
         "breathing": "нет",
-        "exercise": "нет"
+        "exercise": "нет",
+        "quran_wird": "нет"
       }
     }
   },
@@ -109,6 +110,7 @@
     911298897,
     911298898,
     911298899,
-    911298900
+    911298900,
+    911298901
   ]
 }
