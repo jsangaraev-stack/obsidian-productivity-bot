@@ -1,6 +1,13 @@
 {
   "offset": 911298904,
-  "sessions": {},
+  "sessions": {
+    "1332402646": {
+      "date": "2026-06-10",
+      "block": "morning",
+      "index": 0,
+      "answers": {}
+    }
+  },
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -46,7 +53,7 @@
     "1332402646": {
       "midday": "2026-06-08",
       "evening": "2026-06-09",
-      "morning": "2026-06-09"
+      "morning": "2026-06-10"
     }
   },
   "random_reminders": {
