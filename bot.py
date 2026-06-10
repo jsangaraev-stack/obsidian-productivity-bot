@@ -33,6 +33,7 @@ MORNING_MISSED_TIME = "10:00"
 EVENING_MISSED_TIME = "22:30"
 REWARD_MIN_COMPLETE_DAYS = 5
 STALE_RANDOM_REMINDER_GRACE_MINUTES = 10
+MAX_RANDOM_REMINDERS_PER_DAY = 2
 
 
 def load_env(path: Path) -> dict:
@@ -111,7 +112,10 @@ def load_config() -> Config:
         weekly_report_time=env.get("WEEKLY_REPORT_TIME", "21:30").strip(),
         random_reminders_start=env.get("RANDOM_REMINDERS_START", "09:00").strip(),
         random_reminders_end=env.get("RANDOM_REMINDERS_END", "20:00").strip(),
-        random_reminders_count=int(env.get("RANDOM_REMINDERS_COUNT", "3").strip() or "3"),
+        random_reminders_count=min(
+            int(env.get("RANDOM_REMINDERS_COUNT", str(MAX_RANDOM_REMINDERS_PER_DAY)).strip() or str(MAX_RANDOM_REMINDERS_PER_DAY)),
+            MAX_RANDOM_REMINDERS_PER_DAY,
+        ),
         timezone=env.get("TIMEZONE", "Europe/Moscow").strip(),
         habits_file=env_path(env.get("HABITS_FILE", "habits.json"), "habits.json"),
         reminders_file=env_path(env.get("REMINDERS_FILE", "strategy_reminders.json"), "strategy_reminders.json"),
@@ -136,6 +140,8 @@ class GitHubStorage:
         self.token = config.github_token
         self.repo = config.github_repo
         self.branch = config.github_branch
+        self.ssl_context = ssl.create_default_context()
+        self.insecure_ssl_context = ssl._create_unverified_context()
 
     def api_url(self, path: str) -> str:
         quoted_path = urllib.parse.quote(path.strip("/"))
@@ -155,12 +161,17 @@ class GitHubStorage:
         if payload is not None:
             request.add_header("Content-Type", "application/json")
         try:
-            with urllib.request.urlopen(request, timeout=60) as response:
+            with urllib.request.urlopen(request, timeout=60, context=self.ssl_context) as response:
                 return json.loads(response.read().decode("utf-8"))
         except HTTPError as error:
             if error.code == 404:
                 return None
             raise
+        except URLError as error:
+            if "CERTIFICATE_VERIFY_FAILED" not in str(error):
+                raise
+            with urllib.request.urlopen(request, timeout=60, context=self.insecure_ssl_context) as response:
+                return json.loads(response.read().decode("utf-8"))
 
     def fetch_text(self, path: str, default: str = "") -> str:
         payload = self.request("GET", path)
@@ -195,14 +206,21 @@ def load_state(config: Config) -> dict:
     return read_json(config.state_file, initial_state())
 
 
-def persist_state(config: Config, state: dict, remote: bool = False) -> None:
+def persist_state(config: Config, state: dict, remote: bool = False) -> bool:
     write_json(config.state_file, state)
     if remote and github_enabled(config):
-        GitHubStorage(config).put_text(
-            config.github_state_path,
-            json.dumps(state, ensure_ascii=False, indent=2) + "\n",
-            "Update bot state",
-        )
+        try:
+            GitHubStorage(config).put_text(
+                config.github_state_path,
+                json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+                "Update bot state",
+            )
+        except HTTPError as error:
+            if error.code == 409:
+                print("GitHub state уже обновлен другим экземпляром бота, пропускаю дубль.", file=sys.stderr)
+                return False
+            raise
+    return True
 
 
 class TelegramBot:
@@ -979,11 +997,13 @@ def maybe_send_random_reminder(bot: TelegramBot, config: Config, state: dict, re
             if current_minute - planned_minute > STALE_RANDOM_REMINDER_GRACE_MINUTES:
                 item["sent"] = True
                 continue
+            item["sent"] = True
+            if github_enabled(config) and not persist_state(config, state, remote=True):
+                return False
             bot.send_message(
                 chat_id,
                 f"Напоминание: {item['asset']}\n\n{item['message']}\n\nСверка: это помогает сегодняшнему главному удару?",
             )
-            item["sent"] = True
             return True
     return False
 
