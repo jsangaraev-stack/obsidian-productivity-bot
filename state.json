@@ -1,22 +1,6 @@
 {
-  "offset": 911298927,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-11",
-      "block": "morning",
-      "index": 8,
-      "answers": {
-        "main_strike": "добить всю ОС с продукта",
-        "sleep_time": "23:30",
-        "wake_time": "09:00",
-        "cold_shower": "да",
-        "breathing": "нет",
-        "exercise": "нет",
-        "quran_wird": "нет",
-        "plan": "работать по продукту"
-      }
-    }
-  },
+  "offset": 911298928,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -75,6 +59,20 @@
         "goal_step": "да",
         "tomorrow_first_step": "минимальный день, главное не разорвать цепь"
       }
+    },
+    "2026-06-11": {
+      "morning": {
+        "main_strike": "добить всю ОС с продукта",
+        "sleep_time": "23:30",
+        "wake_time": "09:00",
+        "cold_shower": "да",
+        "breathing": "нет",
+        "exercise": "нет",
+        "quran_wird": "нет",
+        "plan": "работать по продукту",
+        "planned_work_hours": "3-4"
+      },
+      "evening": {}
     }
   },
   "last_sent": {
@@ -209,6 +207,7 @@
     911298923,
     911298924,
     911298925,
-    911298926
+    911298926,
+    911298927
   ]
 }
