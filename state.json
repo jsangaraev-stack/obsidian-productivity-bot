@@ -1,17 +1,18 @@
 {
-  "offset": 911298925,
+  "offset": 911298926,
   "sessions": {
     "1332402646": {
       "date": "2026-06-11",
       "block": "morning",
-      "index": 6,
+      "index": 7,
       "answers": {
         "main_strike": "добить всю ОС с продукта",
         "sleep_time": "23:30",
         "wake_time": "09:00",
         "cold_shower": "да",
         "breathing": "нет",
-        "exercise": "нет"
+        "exercise": "нет",
+        "quran_wird": "нет"
       }
     }
   },
@@ -205,6 +206,7 @@
     911298921,
     911298922,
     911298923,
-    911298924
+    911298924,
+    911298925
   ]
 }
