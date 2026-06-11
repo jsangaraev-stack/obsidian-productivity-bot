@@ -1,17 +1,6 @@
 {
-  "offset": 911298933,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-11",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "Отдыхал",
-        "main_strike_done": "нет",
-        "goal_step": "нет"
-      }
-    }
-  },
+  "offset": 911298934,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -83,7 +72,12 @@
         "plan": "работать по продукту",
         "planned_work_hours": "3-4"
       },
-      "evening": {}
+      "evening": {
+        "fact": "Отдыхал",
+        "main_strike_done": "нет",
+        "goal_step": "нет",
+        "tomorrow_first_step": "Выезд әтигә"
+      }
     }
   },
   "last_sent": {
@@ -224,6 +218,7 @@
     911298929,
     911298930,
     911298931,
-    911298932
+    911298932,
+    911298933
   ]
 }
