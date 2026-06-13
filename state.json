@@ -1,15 +1,16 @@
 {
-  "offset": 911298941,
+  "offset": 911298942,
   "sessions": {
     "1332402646": {
       "date": "2026-06-13",
       "block": "morning",
-      "index": 4,
+      "index": 5,
       "answers": {
         "main_strike": "Биектау",
         "sleep_time": "22:20",
         "wake_time": "07:20",
-        "cold_shower": "нет"
+        "cold_shower": "нет",
+        "breathing": "нет"
       }
     }
   },
@@ -281,6 +282,7 @@
     911298937,
     911298938,
     911298939,
-    911298940
+    911298940,
+    911298941
   ]
 }
