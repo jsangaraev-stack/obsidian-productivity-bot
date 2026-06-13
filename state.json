@@ -1,22 +1,6 @@
 {
-  "offset": 911298945,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-13",
-      "block": "morning",
-      "index": 8,
-      "answers": {
-        "main_strike": "Биектау",
-        "sleep_time": "22:20",
-        "wake_time": "07:20",
-        "cold_shower": "нет",
-        "breathing": "нет",
-        "exercise": "да",
-        "quran_wird": "нет",
-        "plan": "Эшләргә"
-      }
-    }
-  },
+  "offset": 911298946,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -106,6 +90,20 @@
         "quran_wird": "нет",
         "plan": "минимальный день, главное не разорвать цепь",
         "planned_work_hours": "1-2"
+      },
+      "evening": {}
+    },
+    "2026-06-13": {
+      "morning": {
+        "main_strike": "Биектау",
+        "sleep_time": "22:20",
+        "wake_time": "07:20",
+        "cold_shower": "нет",
+        "breathing": "нет",
+        "exercise": "да",
+        "quran_wird": "нет",
+        "plan": "Эшләргә",
+        "planned_work_hours": "5-6"
       },
       "evening": {}
     }
@@ -289,6 +287,7 @@
     911298941,
     911298942,
     911298943,
-    911298944
+    911298944,
+    911298945
   ]
 }
