@@ -1,17 +1,6 @@
 {
-  "offset": 911298988,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-16",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "газовал",
-        "main_strike_done": "да",
-        "goal_step": "да"
-      }
-    }
-  },
+  "offset": 911298989,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -166,7 +155,12 @@
         "plan": "Тащить проекты",
         "planned_work_hours": "5-6"
       },
-      "evening": {}
+      "evening": {
+        "fact": "газовал",
+        "main_strike_done": "да",
+        "goal_step": "да",
+        "tomorrow_first_step": "ранний подъем в 6.20"
+      }
     }
   },
   "last_sent": {
@@ -433,6 +427,7 @@
     911298984,
     911298985,
     911298986,
-    911298987
+    911298987,
+    911298988
   ]
 }
