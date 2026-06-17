@@ -1,17 +1,18 @@
 {
-  "offset": 911298995,
+  "offset": 911298996,
   "sessions": {
     "1332402646": {
       "date": "2026-06-17",
       "block": "morning",
-      "index": 6,
+      "index": 7,
       "answers": {
         "main_strike": "дать анонс, сделать первую продажу",
         "sleep_time": "23:00",
         "wake_time": "07:10",
         "cold_shower": "да",
         "breathing": "да",
-        "exercise": "нет"
+        "exercise": "нет",
+        "quran_wird": "да"
       }
     }
   },
@@ -462,6 +463,7 @@
     911298991,
     911298992,
     911298993,
-    911298994
+    911298994,
+    911298995
   ]
 }
