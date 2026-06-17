@@ -1,22 +1,6 @@
 {
-  "offset": 911298997,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-17",
-      "block": "morning",
-      "index": 8,
-      "answers": {
-        "main_strike": "дать анонс, сделать первую продажу",
-        "sleep_time": "23:00",
-        "wake_time": "07:10",
-        "cold_shower": "да",
-        "breathing": "да",
-        "exercise": "нет",
-        "quran_wird": "да",
-        "plan": "тащить"
-      }
-    }
-  },
+  "offset": 911298998,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -177,6 +161,20 @@
         "goal_step": "да",
         "tomorrow_first_step": "ранний подъем в 6.20"
       }
+    },
+    "2026-06-17": {
+      "morning": {
+        "main_strike": "дать анонс, сделать первую продажу",
+        "sleep_time": "23:00",
+        "wake_time": "07:10",
+        "cold_shower": "да",
+        "breathing": "да",
+        "exercise": "нет",
+        "quran_wird": "да",
+        "plan": "тащить",
+        "planned_work_hours": "7+"
+      },
+      "evening": {}
     }
   },
   "last_sent": {
@@ -466,6 +464,7 @@
     911298993,
     911298994,
     911298995,
-    911298996
+    911298996,
+    911298997
   ]
 }
