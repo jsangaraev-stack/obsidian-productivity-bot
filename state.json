@@ -1,17 +1,6 @@
 {
-  "offset": 911299001,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-17",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "слабый день, нафс атаковал сильно",
-        "main_strike_done": "частично",
-        "goal_step": "да"
-      }
-    }
-  },
+  "offset": 911299002,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -185,7 +174,12 @@
         "plan": "тащить",
         "planned_work_hours": "7+"
       },
-      "evening": {}
+      "evening": {
+        "fact": "слабый день, нафс атаковал сильно",
+        "main_strike_done": "частично",
+        "goal_step": "да",
+        "tomorrow_first_step": "подъем"
+      }
     }
   },
   "last_sent": {
@@ -479,6 +473,7 @@
     911298997,
     911298998,
     911298999,
-    911299000
+    911299000,
+    911299001
   ]
 }
