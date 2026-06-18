@@ -1,15 +1,16 @@
 {
-  "offset": 911299008,
+  "offset": 911299009,
   "sessions": {
     "1332402646": {
       "date": "2026-06-18",
       "block": "morning",
-      "index": 4,
+      "index": 5,
       "answers": {
         "main_strike": "выезд в сафар",
         "sleep_time": "22:50",
         "wake_time": "07:15",
-        "cold_shower": "да"
+        "cold_shower": "да",
+        "breathing": "нет"
       }
     }
   },
@@ -506,6 +507,7 @@
     911299004,
     911299005,
     911299006,
-    911299007
+    911299007,
+    911299008
   ]
 }
