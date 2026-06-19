@@ -1,17 +1,6 @@
 {
-  "offset": 911299016,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-18",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "Прилетел",
-        "main_strike_done": "да",
-        "goal_step": "да"
-      }
-    }
-  },
+  "offset": 911299017,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -204,7 +193,12 @@
         "plan": "работа, выезд",
         "planned_work_hours": "3-4"
       },
-      "evening": {}
+      "evening": {
+        "fact": "Прилетел",
+        "main_strike_done": "да",
+        "goal_step": "да",
+        "tomorrow_first_step": "Подъем"
+      }
     }
   },
   "last_sent": {
@@ -527,6 +521,7 @@
     911299012,
     911299013,
     911299014,
-    911299015
+    911299015,
+    911299016
   ]
 }
