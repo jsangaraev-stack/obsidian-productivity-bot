@@ -1,17 +1,6 @@
 {
-  "offset": 911299021,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-21",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "отдохнул",
-        "main_strike_done": "нет",
-        "goal_step": "нет"
-      }
-    }
-  },
+  "offset": 911299022,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -218,6 +207,15 @@
         "main_strike_done": "частично",
         "goal_step": "частично",
         "tomorrow_first_step": "минимальный день, главное не разорвать цепь"
+      }
+    },
+    "2026-06-21": {
+      "morning": {},
+      "evening": {
+        "fact": "отдохнул",
+        "main_strike_done": "нет",
+        "goal_step": "нет",
+        "tomorrow_first_step": "ранний подъем"
       }
     }
   },
@@ -574,6 +572,7 @@
     911299017,
     911299018,
     911299019,
-    911299020
+    911299020,
+    911299021
   ]
 }
