@@ -26,7 +26,6 @@ BLOCK_LABELS = {
 }
 QUICK_QUESTIONS = [
     {"id": "quick_main_strike", "text": "Главный удар дня?", "type": "text"},
-    {"id": "quick_tasks", "text": "Какие задачи минимум выполнить?", "type": "text"},
 ]
 MINIMUM_TEXT = "минимальный день, главное не разорвать цепь"
 MORNING_MISSED_TIME = "10:00"
@@ -309,7 +308,7 @@ def load_habits(path: Path) -> dict:
         data = {
             "morning": {
                 "intro": "Утренний план.",
-                "questions": [{"id": "plan", "text": "Каков мой план на день?", "type": "text"}],
+                "questions": [{"id": "main_strike", "text": "Какой один главный удар дня?", "type": "text"}],
             },
             "evening": {
                 "intro": data.get("intro", "Вечерний факт."),
@@ -575,7 +574,6 @@ def save_session_to_state(state: dict, session: dict) -> None:
         answers = session.get("answers", {})
         state["entries"][date].setdefault("morning", {})
         state["entries"][date]["morning"]["main_strike"] = answers.get("quick_main_strike", "")
-        state["entries"][date]["morning"]["plan"] = answers.get("quick_tasks", "")
         return
 
     state["entries"][date].setdefault(block, {})
@@ -704,6 +702,14 @@ def average(values: list[int]) -> float | None:
     return sum(values) / len(values)
 
 
+def count_yesish(values: list[str]) -> int:
+    return sum(1 for value in values if yesish(value))
+
+
+def count_filled(values: list[str]) -> int:
+    return sum(1 for value in values if str(value or "").strip())
+
+
 def build_report(config: Config, state: dict) -> str:
     entries = state.get("entries", {})
     report_date = today_key(config.timezone)
@@ -712,78 +718,140 @@ def build_report(config: Config, state: dict) -> str:
     if not dates:
         return f"## Отчет за {report_date}\n\nПока нет записей в таблице план-факт.\n"
 
-    lines = [
-        f"## Отчет за {report_date}",
-        "",
-        f"Период: последние {len(dates)} дней.",
-        "",
-    ]
-
-    complete_days = 0
-    main_strike_done = 0
-    goal_steps = 0
-    missing_facts = []
+    daily_notes = []
+    main_strikes = []
+    facts = []
+    strike_done_values = []
+    goal_step_values = []
+    cold_shower_values = []
+    breathing_values = []
+    exercise_values = []
+    quran_values = []
     tomorrow_steps = []
 
     for date in dates:
         entry = entries[date]
-        plan = answer(entry, "morning", "plan")
         main_strike = answer(entry, "morning", "main_strike")
         planned_hours = answer(entry, "morning", "planned_work_hours")
+        cold_shower = answer(entry, "morning", "cold_shower")
+        breathing = answer(entry, "morning", "breathing")
+        exercise = answer(entry, "morning", "exercise")
+        quran_wird = answer(entry, "morning", "quran_wird")
         fact = answer(entry, "evening", "fact")
         strike_done = answer(entry, "evening", "main_strike_done")
         goal_step = answer(entry, "evening", "goal_step")
         tomorrow_step = answer(entry, "evening", "tomorrow_first_step")
 
-        if plan and fact:
-            complete_days += 1
-        if yesish(strike_done):
-            main_strike_done += 1
-        if yesish(goal_step):
-            goal_steps += 1
-        if plan and not fact:
-            missing_facts.append(date)
+        main_strikes.append(main_strike)
+        facts.append(fact)
+        strike_done_values.append(strike_done)
+        goal_step_values.append(goal_step)
+        cold_shower_values.append(cold_shower)
+        breathing_values.append(breathing)
+        exercise_values.append(exercise)
+        quran_values.append(quran_wird)
         if tomorrow_step:
             tomorrow_steps.append(tomorrow_step)
 
-        lines.extend(
-            [
-                f"### {date}",
-                f"- План: {plan or 'не заполнено'}",
-                f"- Главный удар: {main_strike or 'не заполнено'}",
-                f"- План рабочих часов: {planned_hours or 'не заполнено'}",
-                f"- Факт: {fact or 'не заполнено'}",
-                f"- Главный удар выполнен: {strike_done or 'не заполнено'}",
-                f"- Шаг к Цели: {goal_step or 'не заполнено'}",
-                "",
-            ]
+        daily_notes.append(
+            "\n".join(
+                [
+                    f"### {date}",
+                    f"- Главный удар: {main_strike or 'не заполнено'}",
+                    f"- План рабочих часов: {planned_hours or 'не заполнено'}",
+                    f"- Факт дня: {fact or 'не заполнено'}",
+                    f"- Главный удар выполнен: {strike_done or 'не заполнено'}",
+                    f"- Шаг к Цели: {goal_step or 'не заполнено'}",
+                    f"- Первый шаг завтра: {tomorrow_step or 'не заполнено'}",
+                ]
+            )
         )
 
-    weakest_point = "пока нет данных"
-    if missing_facts:
-        weakest_point = "есть утренний план, но нет вечернего факта"
-    elif main_strike_done < len(dates):
-        weakest_point = "главный удар не всегда доводится до конца"
-    elif goal_steps < len(dates):
-        weakest_point = "шаг к Цели делается не каждый день"
+    total = len(dates)
+    focus_days = count_filled(main_strikes)
+    closed_days = count_filled(facts)
+    complete_days = sum(1 for main_strike, fact in zip(main_strikes, facts) if main_strike and fact)
+    main_strike_done = count_yesish(strike_done_values)
+    goal_steps = count_yesish(goal_step_values)
+    body_practices = {
+        "холодный душ": count_yesish(cold_shower_values),
+        "дыхание": count_yesish(breathing_values),
+        "зарядка": count_yesish(exercise_values),
+        "вирд Корана": count_yesish(quran_values),
+    }
+    strongest_practice = max(body_practices, key=body_practices.get)
+    weakest_practice = min(body_practices, key=body_practices.get)
+    missing_evening = [date for date, main_strike, fact in zip(dates, main_strikes, facts) if main_strike and not fact]
+    missing_focus = [date for date, main_strike in zip(dates, main_strikes) if not main_strike]
 
-    lines.extend(
-        [
-            "### Сводка",
-            f"- Главное число недели: {complete_days}/{len(dates)} дней с планом-фактом",
-            f"- Главный удар выполнен или частично выполнен: {main_strike_done}/{len(dates)}",
-            f"- Шаг к Цели был или частично был: {goal_steps}/{len(dates)}",
-            f"- Главная поломка недели: {weakest_point}",
-            "- Смысл отчета: увидеть разницу между намерением утром и реальностью вечером.",
-            "",
-            "### Первый шаг на завтра",
-            f"- {tomorrow_steps[-1] if tomorrow_steps else 'не заполнено'}",
-            "",
-            "### Награда",
-            f"- {'Можно выбрать небольшую награду: 5+ дней система держалась.' if complete_days >= REWARD_MIN_COMPLETE_DAYS else 'Пока главная награда - не бросить систему. Цель: 5 дней план-факт за неделю.'}",
-            "",
-        ]
+    if complete_days >= max(1, total - 1):
+        psychological_core = "Система в целом держится: ты не просто задаешь фокус, а возвращаешься вечером к реальности."
+    elif missing_evening:
+        psychological_core = "Главный паттерн недели - избегание вечерней правды: утром фокус появляется, но вечером психика уходит от фиксации результата."
+    elif missing_focus:
+        psychological_core = "Главный паттерн недели - размытый вход в день: без главного удара день легче забирает внешняя повестка."
+    elif main_strike_done < focus_days:
+        psychological_core = "Главный паттерн недели - разрыв между намерением и доведением: цель видна, но в течение дня ее перебивают импульсы, усталость или чужая срочность."
+    else:
+        psychological_core = "Неделя выглядит рабочей: основные срывы не в направлении, а в качестве энергии и регулярности базовых практик."
+
+    if goal_steps == 0:
+        goal_analysis = "Шаг к Цели почти не проявлен. Это признак, что большая цель пока живет в голове, но не всегда превращается в ежедневное действие."
+    elif goal_steps < total:
+        goal_analysis = "Шаги к Цели есть, но они не стали ежедневной нормой. Нужен меньший, почти неизбежный формат шага."
+    else:
+        goal_analysis = "Шаг к Цели стал частью недели. Это сильный признак, что стратегия начинает проходить через календарь, а не только через размышления."
+
+    if body_practices[weakest_practice] <= max(1, total // 3):
+        body_analysis = f"Самая слабая опора недели - {weakest_practice}. Это не мелочь: когда база проседает, воля начинает работать против усталости."
+    else:
+        body_analysis = f"Базовые практики держатся умеренно. Самая сильная опора - {strongest_practice}, самая слабая - {weakest_practice}."
+
+    next_step = tomorrow_steps[-1] if tomorrow_steps else "завтра утром сначала назвать главный удар, а уже потом входить в задачи"
+    reward_text = (
+        "Можно дать себе небольшую награду: система держалась 5+ дней."
+        if complete_days >= REWARD_MIN_COMPLETE_DAYS
+        else "Главная награда сейчас - не бросить систему. Цель на следующую неделю: 5 дней с утренним фокусом и вечерним фактом."
     )
+
+    lines = [
+        f"## Психологический разбор недели за {report_date}",
+        "",
+        f"Период: последние {total} дней.",
+        "",
+        "### 1. Главное наблюдение",
+        psychological_core,
+        "",
+        "### 2. Цифры без самообмана",
+        f"- Утренний главный удар был зафиксирован: {focus_days}/{total}",
+        f"- День был закрыт вечерним фактом: {closed_days}/{total}",
+        f"- Полная связка главный удар -> факт: {complete_days}/{total}",
+        f"- Главный удар выполнен или частично выполнен: {main_strike_done}/{total}",
+        f"- Шаг к Цели был или частично был: {goal_steps}/{total}",
+        "",
+        "### 3. Что видно по внутреннему состоянию",
+        f"- Фокус: {'утром направление чаще появляется' if focus_days >= total / 2 else 'утренний фокус пока нестабилен'}; без него день легче распадается на реакцию.",
+        f"- Закрытие дня: {'вечерняя честность держится' if closed_days >= total / 2 else 'вечерний факт часто избегается'}; именно здесь видно, где реальность расходится с образом себя.",
+        f"- Цель: {goal_analysis}",
+        f"- Тело и база: {body_analysis}",
+        "",
+        "### 4. Возможная причина срыва",
+        "Если день не закрывается или главный удар не доводится, это чаще не лень. Обычно это конфликт между большим образом себя и текущей емкостью: хочется жить стратегически, но нервная система выбирает более легкое снятие напряжения. Поэтому задача не давить сильнее, а сделать следующий шаг меньше и конкретнее.",
+        "",
+        "### 5. Риск следующей недели",
+        f"- Риск: {'снова уйти от вечерней фиксации' if missing_evening else 'перегрузить день ожиданиями и потерять главный удар'}",
+        "- Защита: утром один главный удар, вечером один честный факт. Без драматизации.",
+        "",
+        "### 6. Первый шаг",
+        f"- {next_step}",
+        "",
+        "### 7. Награда и отношение к себе",
+        f"- {reward_text}",
+        "",
+        "### Дни недели",
+        *daily_notes,
+        "",
+    ]
     return "\n".join(lines)
 
 
@@ -818,7 +886,7 @@ def handle_command(bot: TelegramBot, config: Config, state: dict, habits: dict, 
             "Команды:\n"
             "/plan - заполнить утренний план сейчас\n"
             "/fact - заполнить вечерний факт сейчас\n"
-            "/quick - быстрый план: главный удар + задачи\n"
+            "/quick - быстрый план: только главный удар\n"
             "/minimum - записать минимальный день, чтобы не разорвать цепь\n"
             "/report - записать отчет по последним дням\n"
             "/sos - быстрый протокол возвращения к делу\n"
