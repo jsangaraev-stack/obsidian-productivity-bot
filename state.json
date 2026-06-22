@@ -1,17 +1,6 @@
 {
-  "offset": 911299034,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-22",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "Рилс! И вождение",
-        "main_strike_done": "да",
-        "goal_step": "да"
-      }
-    }
-  },
+  "offset": 911299035,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -241,7 +230,12 @@
         "plan": "минимальный день, главное не разорвать цепь",
         "planned_work_hours": "1-2"
       },
-      "evening": {}
+      "evening": {
+        "fact": "Рилс! И вождение",
+        "main_strike_done": "да",
+        "goal_step": "да",
+        "tomorrow_first_step": "Подъем к прокурору в 6 утра"
+      }
     }
   },
   "last_sent": {
@@ -623,6 +617,7 @@
     911299030,
     911299031,
     911299032,
-    911299033
+    911299033,
+    911299034
   ]
 }
