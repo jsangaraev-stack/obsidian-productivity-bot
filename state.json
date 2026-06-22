@@ -1,20 +1,6 @@
 {
-  "offset": 911299029,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-22",
-      "block": "morning",
-      "index": 6,
-      "answers": {
-        "main_strike": "начать снимать рилсы, машина",
-        "sleep_time": "23:00",
-        "wake_time": "08:20",
-        "cold_shower": "да",
-        "breathing": "да",
-        "exercise": "нет"
-      }
-    }
-  },
+  "offset": 911299031,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -231,6 +217,20 @@
         "goal_step": "нет",
         "tomorrow_first_step": "ранний подъем"
       }
+    },
+    "2026-06-22": {
+      "morning": {
+        "main_strike": "начать снимать рилсы, машина",
+        "sleep_time": "23:00",
+        "wake_time": "08:20",
+        "cold_shower": "да",
+        "breathing": "да",
+        "exercise": "нет",
+        "quran_wird": "нет",
+        "plan": "минимальный день, главное не разорвать цепь",
+        "planned_work_hours": "1-2"
+      },
+      "evening": {}
     }
   },
   "last_sent": {
@@ -607,6 +607,8 @@
     911299024,
     911299026,
     911299027,
-    911299028
+    911299028,
+    911299029,
+    911299030
   ]
 }
