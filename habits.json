@@ -42,11 +42,6 @@
         "options": ["да", "нет"]
       },
       {
-        "id": "plan",
-        "text": "Каков мой план на день?",
-        "type": "text"
-      },
-      {
         "id": "planned_work_hours",
         "text": "Сколько часов я планирую работать?",
         "type": "choice",
