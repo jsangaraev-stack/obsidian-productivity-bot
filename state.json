@@ -1,21 +1,6 @@
 {
-  "offset": 911299055,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-25",
-      "block": "morning",
-      "index": 7,
-      "answers": {
-        "main_strike": "вождение",
-        "sleep_time": "23:00",
-        "wake_time": "09:00",
-        "cold_shower": "да",
-        "breathing": "нет",
-        "exercise": "нет",
-        "quran_wird": "да"
-      }
-    }
-  },
+  "offset": 911299056,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -269,6 +254,19 @@
         "goal_step": "да",
         "tomorrow_first_step": "вождение"
       }
+    },
+    "2026-06-25": {
+      "morning": {
+        "main_strike": "вождение",
+        "sleep_time": "23:00",
+        "wake_time": "09:00",
+        "cold_shower": "да",
+        "breathing": "нет",
+        "exercise": "нет",
+        "quran_wird": "да",
+        "planned_work_hours": "7+"
+      },
+      "evening": {}
     }
   },
   "last_sent": {
@@ -699,6 +697,7 @@
     911299051,
     911299052,
     911299053,
-    911299054
+    911299054,
+    911299055
   ]
 }
