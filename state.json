@@ -1,17 +1,6 @@
 {
-  "offset": 911299046,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-23",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "путешествовал",
-        "main_strike_done": "частично",
-        "goal_step": "да"
-      }
-    }
-  },
+  "offset": 911299047,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -259,7 +248,12 @@
         "quran_wird": "нет",
         "planned_work_hours": "5-6"
       },
-      "evening": {}
+      "evening": {
+        "fact": "путешествовал",
+        "main_strike_done": "частично",
+        "goal_step": "да",
+        "tomorrow_first_step": "вождение"
+      }
     }
   },
   "last_sent": {
@@ -667,6 +661,7 @@
     911299042,
     911299043,
     911299044,
-    911299045
+    911299045,
+    911299046
   ]
 }
