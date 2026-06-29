@@ -1,17 +1,6 @@
 {
-  "offset": 911299071,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-28",
-      "block": "evening",
-      "index": 3,
-      "answers": {
-        "fact": "провел семинар и рилсы работал",
-        "main_strike_done": "частично",
-        "goal_step": "да"
-      }
-    }
-  },
+  "offset": 911299072,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -304,7 +293,12 @@
         "quran_wird": "нет",
         "planned_work_hours": "7+"
       },
-      "evening": {}
+      "evening": {
+        "fact": "провел семинар и рилсы работал",
+        "main_strike_done": "частично",
+        "goal_step": "да",
+        "tomorrow_first_step": "подъем"
+      }
     }
   },
   "last_sent": {
@@ -766,6 +760,7 @@
     911299067,
     911299068,
     911299069,
-    911299070
+    911299070,
+    911299071
   ]
 }
