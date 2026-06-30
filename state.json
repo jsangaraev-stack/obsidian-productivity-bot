@@ -1,21 +1,6 @@
 {
-  "offset": 911299080,
-  "sessions": {
-    "1332402646": {
-      "date": "2026-06-29",
-      "block": "morning",
-      "index": 7,
-      "answers": {
-        "main_strike": "рилсы",
-        "sleep_time": "23:00",
-        "wake_time": "07:15",
-        "cold_shower": "нет",
-        "breathing": "нет",
-        "exercise": "да",
-        "quran_wird": "да"
-      }
-    }
-  },
+  "offset": 911299081,
+  "sessions": {},
   "entries": {
     "2026-06-08": {
       "morning": {
@@ -314,6 +299,19 @@
         "goal_step": "да",
         "tomorrow_first_step": "подъем"
       }
+    },
+    "2026-06-29": {
+      "morning": {
+        "main_strike": "рилсы",
+        "sleep_time": "23:00",
+        "wake_time": "07:15",
+        "cold_shower": "нет",
+        "breathing": "нет",
+        "exercise": "да",
+        "quran_wird": "да",
+        "planned_work_hours": "7+"
+      },
+      "evening": {}
     }
   },
   "last_sent": {
@@ -599,7 +597,6 @@
     ]
   },
   "processed_updates": [
-    911298878,
     911298879,
     911298880,
     911298881,
@@ -798,6 +795,7 @@
     911299076,
     911299077,
     911299078,
-    911299079
+    911299079,
+    911299080
   ]
 }
