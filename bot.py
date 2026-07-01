@@ -998,6 +998,10 @@ def mark_sent(state: dict, chat_id: str | int, block: str, date: str) -> None:
     state.setdefault("last_sent", {}).setdefault(str(chat_id), {})[block] = date
 
 
+def time_is_due(current_time: str, planned_time: str) -> bool:
+    return minutes_from_hm(current_time) >= minutes_from_hm(planned_time)
+
+
 def reminder_pool(reminders: dict) -> list[dict]:
     pool = []
     for asset in reminders.get("assets", []):
@@ -1121,7 +1125,7 @@ def maybe_send_scheduled(bot: TelegramBot, config: Config, state: dict, habits: 
         mark_sent(state, chat_id, "midday", date)
         return
 
-    if current_dt.weekday() == 6 and current_time == config.weekly_report_time and last_sent_for(state, chat_id, "weekly_report") != date:
+    if current_dt.weekday() == 6 and time_is_due(current_time, config.weekly_report_time) and last_sent_for(state, chat_id, "weekly_report") != date:
         report = write_report(config, state)
         bot.send_message(
             chat_id,
